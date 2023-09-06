@@ -1,6 +1,8 @@
 # Benchmark-de-Pesquisa
 Trabalho sobre busca de árvores.
-Benchmark de Pesquisa
+Mais detalhes em relação ao trabalho a seguir:
+
+**Benchmark de Pesquisa**
 
 **Descrição:**
 Faça um programa que leia um arquivo texto (no formato .txt) e imprima, em ordem
