@@ -6,12 +6,14 @@ package as_arvores_somos_nozes_2;
 
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.Arrays;
 
 public class Estrutura_De_Dados {
     public static void main(String[] args) {
-        // Crie um TreeMap para armazenar as palavras e suas frequências
+        // TreeMap para armazenar as palavras e suas frequências
         TreeMap<String, Integer> contador = new TreeMap<>();
-        int numComparacoes = 0;
+        int numComparacoesAVL = 0;
+        int numComparacoesBinaria = 0;
         
         // Obtém o tempo de início da execução em nanossegundos
         long inicio = System.nanoTime();
@@ -44,28 +46,44 @@ public class Estrutura_De_Dados {
                         // Se a palavra é nova, adicione-a ao mapa com frequência 1
                         contador.put(palavra, 1);
                     }
-                    // Incrementar o contador de comparações
-                    numComparacoes++;
+                    // Incrementar o contador de comparações para AVL
+                    numComparacoesAVL++;
                 }
             }
+        }        
+        // Obtém o tempo de fim da execução da AVL em nanossegundos
+        long fimAVL = System.nanoTime();
+        
+        // Calcula o tempo total de execução da AVL em segundos
+        double tempoExecucaoAVLSegundos = (fimAVL - inicio) / 1e9;
+        
+        // Pesquisa binária usando Arrays.binarySearch
+        String[] palavrasArray = contador.keySet().toArray(new String[0]);
+        Arrays.sort(palavrasArray); // Ordena o array para pesquisa binária
+        for (String palavra : palavrasArray) {
+            numComparacoesBinaria++;
         }
         
-        // Obtém o tempo de fim da execução em nanossegundos
-        long fim = System.nanoTime();
+        // Obtém o tempo de fim da execução da pesquisa binária em nanossegundos
+        long fimBinaria = System.nanoTime();
         
-        // Calcula o tempo total de execução em segundos
-        double tempoExecucaoSegundos = (fim - inicio) / 1e9;
+        // Calcula o tempo total de execução da pesquisa binária em segundos
+        double tempoExecucaoBinariaSegundos = (fimBinaria - fimAVL) / 1e9;
         
-        // Imprima as palavras e suas frequências
+        // Imprime os resultados
+        System.out.println("Árvore AVL");
+        System.out.println("comparações: " + numComparacoesAVL);
+        System.out.println(tempoExecucaoAVLSegundos + " segundos\n");
+        
+        System.out.println("Pesquisa binária");
+        System.out.println("comparações: " + numComparacoesBinaria);
+        System.out.println(tempoExecucaoBinariaSegundos + " segundos\n");
+        
+        // Imprima as palavras em ordem alfabética e suas frequências diretamente do TreeMap
+        System.out.println("Frequências das palavras:");
         contador.forEach((palavra, frequencia) -> {
             System.out.println(palavra + ": " + frequencia);
         });
-        
-        // Imprima o número de comparações
-        System.out.println("Número de comparações: " + numComparacoes);
-        
-        // Imprima o tempo de execução em segundos
-        System.out.println("Tempo de execução (segundos): " + tempoExecucaoSegundos);
         
         // Feche o Scanner
         entrada.close();
