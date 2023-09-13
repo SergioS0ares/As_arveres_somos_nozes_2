@@ -4,19 +4,22 @@
  */
 package as_arvores_somos_nozes_2;
 
+import as_arvores_somos_nozes_2.ArquivoTXT.Txt_para_Lista;
 import java.util.Scanner;
 import java.util.TreeMap;
 import java.util.Arrays;
 
 public class Estrutura_De_Dados {
     public static void main(String[] args) {
+        Txt_para_Lista ProcessarTxt = new Txt_para_Lista();
+        ProcessarTxt.ProcessarTxt();
         // TreeMap para armazenar as palavras e suas frequências
         TreeMap<String, Integer> contador = new TreeMap<>();
         int numComparacoesAVL = 0;
         int numComparacoesBinaria = 0;
         
-        // Obtém o tempo de início da execução em nanossegundos
-        long inicio = System.nanoTime();
+        // Obtém o tempo de início da execução em Millisegundos
+        long inicio = System.currentTimeMillis();
         
         // Crie um objeto Scanner para ler a entrada do usuário
         Scanner entrada = new Scanner(System.in);
@@ -51,11 +54,11 @@ public class Estrutura_De_Dados {
                 }
             }
         }        
-        // Obtém o tempo de fim da execução da AVL em nanossegundos
-        long fimAVL = System.nanoTime();
+        // Obtém o tempo de fim da execução da AVL em Millisegundos
+        long fimAVL = System.currentTimeMillis();
         
         // Calcula o tempo total de execução da AVL em segundos
-        double tempoExecucaoAVLSegundos = (fimAVL - inicio) / 1e9;
+        double tempoExecucaoAVLSegundos = (fimAVL - inicio) / 1000.0;
         
         // Pesquisa binária usando Arrays.binarySearch
         String[] palavrasArray = contador.keySet().toArray(new String[0]);
@@ -68,7 +71,7 @@ public class Estrutura_De_Dados {
         long fimBinaria = System.nanoTime();
         
         // Calcula o tempo total de execução da pesquisa binária em segundos
-        double tempoExecucaoBinariaSegundos = (fimBinaria - fimAVL) / 1e9;
+        double tempoExecucaoBinariaSegundos = (fimBinaria - fimAVL) / 1000.0;
         
         // Imprime os resultados
         System.out.println("Árvore AVL");
