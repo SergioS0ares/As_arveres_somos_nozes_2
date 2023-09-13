@@ -5,6 +5,7 @@
 package as_arvores_somos_nozes_2;
 
 import as_arvores_somos_nozes_2.ArquivoTXT.Txt_para_Lista;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.TreeMap;

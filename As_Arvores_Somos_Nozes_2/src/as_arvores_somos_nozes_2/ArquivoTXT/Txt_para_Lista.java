@@ -24,14 +24,16 @@ public class Txt_para_Lista {
         relevantes = new ArrayList<>();//vazia q eu ainda vou botar umas budega aqui ainda
     }
 
-    public void processarTxt() {
+
+    public void ProcessarTxt() {
+
         JFileChooser fileChooser = new JFileChooser();//bonitão aqui
-        int treco = fileChooser.showOpenDialog(null);//numerador logico (um sim ou nao)
+        int numeradorLogico = fileChooser.showOpenDialog(null);//numerador logico (um sim ou nao)
 
-        if (treco == JFileChooser.APPROVE_OPTION) {
-            File trequinho = fileChooser.getSelectedFile();//aquivo selecionado == trequinho;
+        if (numeradorLogico == JFileChooser.APPROVE_OPTION) {
+            File arquivoSelecionado = fileChooser.getSelectedFile();//aquivo selecionado == trequinho;
 
-            try (BufferedReader leitor = new BufferedReader(new FileReader(trequinho))) {//passa o trequinho pro leitor
+            try (BufferedReader leitor = new BufferedReader(new FileReader(arquivoSelecionado))) {//passa o trequinho pro leitor
                 String linha;//string que vai receber a linha do txt
                 while ((linha = leitor.readLine()) != null) {//aqui vai se repetir cada vez que a linha receber uma linha do txt até ele não receber mais
                     String[] palavras_separadas = linha.split("[\\s\\p{Punct}]+");// Divida a linha em palavras usando espaços em branco e pontuação como delimitadores
