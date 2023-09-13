@@ -22,7 +22,8 @@ public class Estrutura_De_Dados {
         
         // ArrayList para armazenar as palavras e depois ordená-las para pesquisa binária
         ArrayList<String> palavrasArrayList = new ArrayList<>();
-        
+         // Medição do tempo na árvore AVL
+        long inicioAVL = System.currentTimeMillis();
         // Preencha a árvore AVL e o ArrayList com as palavras relevantes
         for (String palavra : processadorTxt.getRelevantes()) {
             // Árvore AVL balanceada
@@ -32,15 +33,17 @@ public class Estrutura_De_Dados {
             } else {
                 contadorAVL.put(palavra, 1);
             }
-            
             // ArrayList para pesquisa binária
             palavrasArrayList.add(palavra);
         }
          // Medição do tempo na árvore AVL
-        long inicioAVL = System.currentTimeMillis();
+        long fimAVL = System.currentTimeMillis();
+        // Medição do tempo na pesquisa binária
+        long inicioBinaria = System.currentTimeMillis();
         // Ordena o ArrayList para pesquisa binária
         Collections.sort(palavrasArrayList);
-        
+        // Medição do tempo na pesquisa binária
+        long fimBinaria = System.currentTimeMillis();
         // Imprime os resultados da árvore AVL balanceada
         System.out.println("Árvore AVL balanceada");
         System.out.println("Frequências das palavras:");
@@ -50,8 +53,7 @@ public class Estrutura_De_Dados {
             System.out.println(palavra + ": " + contadorAVL.get(palavra));
         }
         
-        // Medição do tempo na árvore AVL
-        long fimAVL = System.currentTimeMillis();
+       
         long tempoExecucaoAVL = fimAVL - inicioAVL;
         
         // Converte o tempo de execução de milissegundos para segundos
@@ -60,15 +62,10 @@ public class Estrutura_De_Dados {
         System.out.println("Comparações AVL: " + processadorTxt.getRelevantes().size());
         System.out.println("Tempo de execução AVL (segundos): " + tempoExecucaoAVLSegundos);
         
-        // Medição do tempo na pesquisa binária
-        long inicioBinaria = System.currentTimeMillis();
-        
         // Realiza pesquisa binária em palavrasArrayList
         System.out.println("\nPesquisa binária");
         System.out.println("Comparações pesquisa binária: " + palavrasArrayList.size());
-        
-        // Medição do tempo na pesquisa binária
-        long fimBinaria = System.currentTimeMillis();
+      
         long tempoExecucaoBinaria = fimBinaria - inicioBinaria;
         
         // Converte o tempo de execução de milissegundos para segundos
