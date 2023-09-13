@@ -15,7 +15,7 @@ import java.util.Comparator;
 public class Estrutura_De_Dados {
     public static void main(String[] args) {
         Txt_para_Lista processadorTxt = new Txt_para_Lista();
-        processadorTxt.processarTxt();
+        processadorTxt.ProcessarTxt();
         
         // TreeMap para armazenar as palavras e suas frequências na árvore AVL balanceada
         TreeMap<String, Integer> contadorAVL = new TreeMap<>();
