@@ -4,6 +4,8 @@
  */
 package as_arvores_somos_nozes_2;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author sergy
@@ -15,6 +17,15 @@ public class As_Arvores_Somos_Nozes_2 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Listagem lista = new Listagem();
+         try{
+        // ArrayList<String> p = lista.LeituraArray();
+         for(String palavras:p){
+            //System.out.println(palavras);
+         }
+}catch(Exception e){
+    e.printStackTrace();
+}
     }
     
 }

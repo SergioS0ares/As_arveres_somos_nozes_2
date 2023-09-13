@@ -1,14 +1,14 @@
+package as_arvores_somos_nozes_2;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.util.ArrayList;
 
-public class Listagem{
-
+public class Listagem {
     public ArrayList<String> LeituraArray() throws Exception{
     try{
         ArrayList<String> palavras = new ArrayList<>();
-        String caminho = "C:/Users/Administrador/Documents/GitHub/As_arveres_somos_nozes_2/dados/teste.txt";
+        String caminho = "C:/Users/User/Documents/GitHub/As_arveres_somos_nozes_2/dados/teste.txt";
         FileReader fr = new FileReader(caminho);
         BufferedReader br = new BufferedReader(fr);
         String i;
@@ -24,5 +24,4 @@ public class Listagem{
         throw erro;
     }
 }  
-
 }
