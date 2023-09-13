@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package as_arvores_somos_nozes_2.ArquivoTXT;
+
 import javax.swing.JFileChooser;
 import java.io.BufferedReader;
 import java.io.File;
@@ -11,24 +12,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-/**
- *
- * @author julio
- */
-public class Txt_para_Lista {//copiei do B2
+
+public class Txt_para_Lista {
 
     private List<String> stopwords;
     private List<String> relevantes;
 
-    public void TextFileProcessor() {
-        //lista de stopwords para comparar futuramente (só inicializando ela, depois eu tenho que instanciar)
-        stopwords = Arrays.asList("de", "a","que","e","do", "da","em","um","para","é","com","não","uma","os","no","se","na","por" ,"mais" ,"as","dos" ,"como" ,"mas","foi","ao","ele" ,"das","tem","à","seu" ,"sua" ,"ou" ,"ser" ,"quando" ,"muito" ,"há" ,"nos" ,"já" ,"está" ,"eu" ,"também","só" ,"pelo" ,"pela" ,"até" ,"isso" ,"ela" ,"entre" ,"era" ,"depois" ,"sem" ,"mesmo" ,"aos" ,"ter" ,"seus" ,"quem" ,"nas" ,"me" ,"esse" ,"eles" ,"estão" ,"você" ,"tinha" ,"foram" ,"essa" ,"num" ,"nem" ,"suas" ,"meu" ,"às" ,"minha" ,"têm" ,"numa" ,"pelos" ,"elas" ,"havia" ,"seja" ,"qual" ,"será" ,"nós" ,"tenho" ,"lhe" ,"deles" ,"essas" ,"esses" ,"pelas" ,"este" ,"fosse" ,"dele" ,"tu" ,"te" ,"vocês" ,"vos" ,"lhes" ,"meus" ,"minhas","teu" ,"tua","teus","tuas","nosso" ,"nossa","nossos","nossas","dela" ,"delas" ,"esta" ,"estes" ,"estas" ,"aquele" ,"aquela" ,"aqueles" ,"aquelas" ,"isto","aquilo" ,"estou","está","estamos","estão","estive","esteve","estivemos","estiveram","estava","estávamos","estavam","estivera","estivéramos","esteja","estejamos","estejam","estivesse","estivéssemos","estivessem","estiver","estivermos","estiverem","hei","há","havemos","hão","houve","houvemos","houveram","houvera","houvéramos","haja","hajamos","hajam","houvesse","houvéssemos","houvessem","houver","houvermos","houverem","houverei","houverá","houveremos","houverão","houveria","houveríamos","houveriam","sou","somos","são","era","éramos","eram","fui","foi","fomos","foram","fora","fôramos","seja","sejamos","sejam","fosse","fôssemos","fossem","for","formos","forem","serei","será","seremos","serão","seria","seríamos","seriam","tenho","tem","temos","tém","tinha","tínhamos","tinham","tive","teve","tivemos","tiveram","tivera","tivéramos","tenha","tenhamos","tenham","tivesse","tivéssemos","tivessem","tiver","tivermos","tiverem","terei","terá","teremos","terão","teria","teríamos","teriam"); // Exemplo de stopwords
-
-        //lista de palavras que serao relevantes
+    public Txt_para_Lista() {
+        // Inicialize a lista de stopwords no construtor
+        stopwords = Arrays.asList("de", "a", "que", "e", "do", "da", "em", "um", "para", "é", "com", "não", "uma", "os", "no", "se", "na", "por", "mais", "as", "dos", "como", "mas", "foi", "ao", "ele", "das", "tem", "à", "seu", "sua", "ou", "ser", "quando", "muito", "há", "nos", "já", "está", "eu", "também", "só", "pelo", "pela", "até", "isso", "ela", "entre", "era", "depois", "sem", "mesmo", "aos", "ter", "seus", "quem", "nas", "me", "esse", "eles", "estão", "você", "tinha", "foram", "essa", "num", "nem", "suas", "meu", "às", "minha", "têm", "numa", "pelos", "elas", "havia", "seja", "qual", "será", "nós", "tenho", "lhe", "deles", "essas", "esses", "pelas", "este", "fosse", "dele", "tu", "te", "vocês", "vos", "lhes", "meus", "minhas", "teu", "tua", "teus", "tuas", "nosso", "nossa", "nossos", "nossas", "dela", "delas", "esta", "estes", "estas", "aquele", "aquela", "aqueles", "aquelas", "isto", "aquilo", "estou", "está", "estamos", "estão", "estive", "esteve", "estivemos", "estiveram", "estava", "estávamos", "estavam", "estivera", "estivéramos", "esteja", "estejamos", "estejam", "estivesse", "estivéssemos", "estivessem", "estiver", "estivermos", "estiverem", "hei", "há", "havemos", "hão", "houve", "houvemos", "houveram", "houvera", "houvéramos", "haja", "hajamos", "hajam", "houvesse", "houvéssemos", "houvessem", "houver", "houvermos", "houverem", "houverei", "houverá", "houveremos", "houverão", "houveria", "houveríamos", "houveriam", "sou", "somos", "são", "era", "éramos", "eram", "fui", "foi", "fomos", "foram", "fora", "fôramos", "seja", "sejamos", "sejam", "fosse", "fôssemos", "fossem", "for", "formos", "forem", "serei", "será", "seremos", "serão", "seria", "seríamos", "seriam", "tenho", "tem", "temos", "tém", "tinha", "tínhamos", "tinham", "tive", "teve", "tivemos", "tiveram", "tivera", "tivéramos", "tenha", "tenhamos", "tenham", "tivesse", "tivéssemos", "tivessem", "tiver", "tivermos", "tiverem", "terei", "terá", "teremos", "terão", "teria", "teríamos", "teriam");
         relevantes = new ArrayList<>();//vazia q eu ainda vou botar umas budega aqui ainda
     }
 
-    public void ProcessarOTxt() {
+    public void processarTxt() {
         JFileChooser fileChooser = new JFileChooser();//bonitão aqui
         int treco = fileChooser.showOpenDialog(null);//numerador logico (um sim ou nao)
 
