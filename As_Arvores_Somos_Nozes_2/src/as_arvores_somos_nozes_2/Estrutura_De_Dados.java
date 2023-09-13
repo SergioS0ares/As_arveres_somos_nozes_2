@@ -36,12 +36,10 @@ public class Estrutura_De_Dados {
             // ArrayList para pesquisa binária
             palavrasArrayList.add(palavra);
         }
-        
+         // Medição do tempo na árvore AVL
+        long inicioAVL = System.currentTimeMillis();
         // Ordena o ArrayList para pesquisa binária
         Collections.sort(palavrasArrayList);
-        
-        // Medição do tempo na árvore AVL
-        long inicioAVL = System.currentTimeMillis();
         
         // Imprime os resultados da árvore AVL balanceada
         System.out.println("Árvore AVL balanceada");
