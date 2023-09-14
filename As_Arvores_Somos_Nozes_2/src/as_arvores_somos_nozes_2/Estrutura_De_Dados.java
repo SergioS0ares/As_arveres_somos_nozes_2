@@ -110,7 +110,5 @@ public class Estrutura_De_Dados {
         System.out.println("\nResultados da Busca Binária:");
         System.out.println("Número de comparações: " + comparacoesBuscaBinaria);
         System.out.println("Tempo de execução: "+ tempoExecucaoBinaioSegundos);
-
-        
     }
 }
