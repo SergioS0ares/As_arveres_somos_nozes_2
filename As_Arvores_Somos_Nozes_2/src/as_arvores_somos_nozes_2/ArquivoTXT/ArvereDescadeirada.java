@@ -87,7 +87,7 @@ public class ArvereDescadeirada {
     }
 
     // Método para obter o número de comparações feitas
-    public int getComparamenteiro() {
+    public int getComparacoes() {
         return comparamenteiro;
     }
 }

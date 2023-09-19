@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.TreeMap;
 import java.util.Comparator;
 
-public class Estrutura_De_Dados {
+public class Estrutura_De_Dados_Class {
 
     public static void main(String[] args) {
         // Instanciar a classe Txt_para_Lista para processar o arquivo de texto
