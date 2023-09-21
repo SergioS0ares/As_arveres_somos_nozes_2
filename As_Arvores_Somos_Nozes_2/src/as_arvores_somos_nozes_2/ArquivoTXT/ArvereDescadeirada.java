@@ -4,13 +4,16 @@
  */
 package as_arvores_somos_nozes_2.ArquivoTXT;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author julio
  */
 
 public class ArvereDescadeirada {
-    class Nozinho { // nó das bubububibibi
+    public class Nozinho { // nó das bubububibibi
         String data;
         Nozinho left;
         Nozinho right;
@@ -22,7 +25,7 @@ public class ArvereDescadeirada {
         }
     }
 
-    private Nozinho root; // que se faça o nó!
+    public Nozinho root; // que se faça o nó!
     private int comparamenteiro; // Contador para acompanhar o número de comparações
 
     public ArvereDescadeirada() { // chama esse aqui pra fazer a coisa toda existir
@@ -36,7 +39,7 @@ public class ArvereDescadeirada {
     }
 
     // Função auxiliar para inserir uma string de forma recursiva
-    private Nozinho treco(Nozinho raizera, String data) { // treco é a coisa que vc quer adicionar
+    public Nozinho treco(Nozinho raizera, String data) { // treco é a coisa que vc quer adicionar
         if (raizera == null) {
             raizera = new Nozinho(data);
             return raizera; // pipipipopopo
@@ -86,8 +89,29 @@ public class ArvereDescadeirada {
         return trequinho(root.right, data);
     }
 
+    public Nozinho getRoot() {
+        return root;
+    }
+    
+    public List<Nozinho> getChildren(Nozinho noAtual) {//tentendo resolver o lance da arvore
+        List<Nozinho> children = new ArrayList<>();
+        if (noAtual != null) {
+            if (noAtual.left != null) {
+                children.add(noAtual.left);
+            }
+            if (noAtual.right != null) {
+                children.add(noAtual.right);
+            }
+        }
+        return children;
+    }
+
+
+    
     // Método para obter o número de comparações feitas
     public int getComparacoes() {
         return comparamenteiro;
     }
+    
+    
 }

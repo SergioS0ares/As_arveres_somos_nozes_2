@@ -7,18 +7,21 @@ package as_arvores_somos_nozes_2;
 
 import as_arvores_somos_nozes_2.ArquivoTXT.Txt_para_Lista;
 import as_arvores_somos_nozes_2.ArquivoTXT.ArvereDescadeirada;
+import as_arvores_somos_nozes_2.Visual.Tela;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
-import java.util.Comparator;
+import as_arvores_somos_nozes_2.ContadorDeComparacaoAvl;
 
 public class Estrutura_De_Dados {
-
+     
     public static void main(String[] args) {
         // Instanciar a classe Txt_para_Lista para processar o arquivo de texto
         Txt_para_Lista processadorTxt = new Txt_para_Lista();
         processadorTxt.ProcessarTxt();
+        ContadorDeComparacaoAvl programa = new ContadorDeComparacaoAvl();
+        
 
         // Obter a lista de palavras relevantes do processador de texto
         List<String> palavrasRelevantes = processadorTxt.getRelevantes();
@@ -29,34 +32,42 @@ public class Estrutura_De_Dados {
         // Criar uma árvore desbalanceada a partir da classe ArvereDescadeirada
         ArvereDescadeirada arvoreDesbalanceada = new ArvereDescadeirada();
 
-        // Inserir as palavras nas árvores e contar comparações (AVL e desbalanceada)
-        int comparacoesAVL = 0;
-        int comparacoesDesbalanceada = 0;
-        
-        // Medição de tempo da Arvore AVL 
-        long inicioArvoreAVL = System.currentTimeMillis();
-        long inicioArvoreDescadeirada = 0;
-        boolean treco = true;
-        for (String palavra : palavrasRelevantes) {
-            // Inserir na árvore AVL e contar comparações
-            if (arvoreAVL.containsKey(palavra)) {
-                int frequencia = arvoreAVL.get(palavra);
-                arvoreAVL.put(palavra, frequencia + 1);
-            } else {
-                arvoreAVL.put(palavra, 1);
-            }
-            if (treco){
-            // Medição de tempo da Arvore Desbalanceada
+        // Medição de tempo da Árvore AVL
+    long inicioArvoreAVL = System.currentTimeMillis();
+    int comparacoesAVL = 0; // Variável para contar as comparações na AVL
+    
+    // Inserir as palavras nas árvores e contar comparações (desbalanceada)
+    int comparacoesDesbalanceada = 0;
+
+    for (String palavra : palavrasRelevantes) {
+        // Inserir na árvore AVL e contar comparações
+        if (arvoreAVL.containsKey(palavra)) {
+            int frequencia = arvoreAVL.get(palavra);
+            arvoreAVL.put(palavra, frequencia + 1);
+        } else {
+            arvoreAVL.put(palavra, 1);
+        }
+        // Realizar comparações na AVL e contar
+    int comparacoes = programa.contarComparacoes(arvoreAVL, palavra);
+    comparacoesAVL += comparacoes;
+    }
+
+    // Medição de tempo da Árvore Desbalanceada
+    long inicioArvoreDescadeirada = System.currentTimeMillis();
+    boolean treco = true;
+
+    for (String palavra : palavrasRelevantes) {
+        if (treco) {
+            // Medição de tempo da Árvore Desbalanceada
             inicioArvoreDescadeirada = System.currentTimeMillis();
             treco = false;
-            }
-            // Inserir na árvore desbalanceada e contar comparações
-            arvoreDesbalanceada.insereNaDescadeirada(palavra);
-            comparacoesDesbalanceada += arvoreDesbalanceada.getComparacoes();
-        
         }
+        // Inserir na árvore desbalanceada e contar comparações
+        arvoreDesbalanceada.insereNaDescadeirada(palavra);
+        comparacoesDesbalanceada += arvoreDesbalanceada.getComparacoes();
+    }
             
-          // Medição de tempo da Arvore AVL
+        // Medição de tempo da Arvore AVL
         long fimAVL = System.currentTimeMillis();
         
         // Medição de tempo da Arvore Desbalanceada
@@ -110,5 +121,11 @@ public class Estrutura_De_Dados {
         System.out.println("\nResultados da Busca Binária:");
         System.out.println("Número de comparações: " + comparacoesBuscaBinaria);
         System.out.println("Tempo de execução: "+ tempoExecucaoBinaioSegundos);
+        
+        Tela birubiru = new Tela(arvoreDesbalanceada);
+        
+        birubiru.setVisible(true);
+        
+        birubiru.preencherJTree();
     }
 }
