@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 import as_arvores_somos_nozes_2.ContadorDeComparacaoAvl;
+import java.awt.EventQueue;
 
 public class Estrutura_De_Dados {
      
@@ -122,10 +123,16 @@ public class Estrutura_De_Dados {
         System.out.println("Número de comparações: " + comparacoesBuscaBinaria);
         System.out.println("Tempo de execução: "+ tempoExecucaoBinaioSegundos);
         
-        Tela birubiru = new Tela(arvoreDesbalanceada);
-        
-        birubiru.setVisible(true);
-        
-        birubiru.preencherJTree();
+       
+ // Criar uma instância da classe Tela
+        Tela instanciaTela = new Tela();
+        instanciaTela.setVisible(true);
+
+        // Usar EventQueue.invokeLater para exibir a interface gráfica na thread de eventos
+        EventQueue.invokeLater(() -> {
+            // Exibir as árvores na interface gráfica
+            instanciaTela.exibirArvoresGraficamente(arvoreAVL, arvoreDesbalanceada);
+        });
+      
     }
 }
