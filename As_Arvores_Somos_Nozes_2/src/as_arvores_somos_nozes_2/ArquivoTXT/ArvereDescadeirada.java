@@ -23,6 +23,17 @@ public class ArvereDescadeirada {
             left = null;
             right = null;
         }
+        public String getData() {
+        return data;
+    }
+
+        public Nozinho getLeft() {
+            return left;
+        }
+
+        public Nozinho getRight() {
+             return right;
+        }
     }
 
     public Nozinho root; // que se faça o nó!

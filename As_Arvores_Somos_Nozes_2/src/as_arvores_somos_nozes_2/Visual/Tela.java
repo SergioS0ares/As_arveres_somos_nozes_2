@@ -4,80 +4,59 @@
  */
 package as_arvores_somos_nozes_2.Visual;
 
-import as_arvores_somos_nozes_2.ArquivoTXT.*;
-import java.util.ArrayList;
-import java.util.List;
+import as_arvores_somos_nozes_2.ArquivoTXT.ArvereDescadeirada;
 import java.util.Map;
 import java.util.TreeMap;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /**
  *
- * @author aluno
+ * @author sergy
  */
 public class Tela extends javax.swing.JFrame {
-
     private ArvereDescadeirada arvoreDesbalanceada = new ArvereDescadeirada();
-    
-    
-    
-    /**
-     * Creates new form Tela
-     */
-    public Tela(ArvereDescadeirada treco) {
+    private Tela instanciaTela;
+    public Tela() {
         initComponents();
-        this.arvoreDesbalanceada = treco;
     }
-    
-    private class Nozao {
-        private String treco;//palavra
-        private List<Nozao> filhotes;
-    
-        public Nozao(String data) {
-            this.treco = data;
-            this.filhotes = new ArrayList<>();
-        }
 
-        public void addChild(Nozao filho) {
-            filhotes.add(filho);
-        }
+  public void exibirArvoresGraficamente(TreeMap<String, Integer> arvoreAVL, ArvereDescadeirada arvoreDesbalanceada) {
+    // Limpe o JTextArea antes de exibir as árvores
+    jTextArea2.setText("");
 
-        public String getTreco() {
-            return treco;
-        }
-    
-        public List<Nozao> getFilhotes() {
-            return filhotes;
+    // Crie uma árvore de Nozinho a partir do TreeMap arvoreAVLConvertida
+    ArvereDescadeirada arvoreAVLConvertida = new ArvereDescadeirada();
+
+    for (Map.Entry<String, Integer> entry : arvoreAVL.entrySet()) {
+        String chave = entry.getKey();
+        int valor = entry.getValue();
+        for (int i = 0; i < valor; i++) {
+            arvoreAVLConvertida.insereNaDescadeirada(chave);
         }
     }
 
-    
-    public void preencherJTree() {
-        DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Árvore Desbalanceada");
+    // Exiba a árvore balanceada (TreeMap) de forma gráfica
+    jTextArea2.append("Árvore AVL (Balanceada):\n");
+    exibirArvoreGraficamente(arvoreAVLConvertida.getRoot(), "", "", true);
 
-        preencherNoArvore(raiz, arvoreDesbalanceada.getRoot());
-
-        DefaultTreeModel modeloArvore = new DefaultTreeModel(raiz);
-        jTreeBuild.setModel(modeloArvore);
-    }
-
-    private void preencherNoArvore(DefaultMutableTreeNode noRaiz, ArvereDescadeirada.Nozinho noAtual) {
-    if (noAtual != null) {
-        Nozao treeNode = new Nozao(noAtual.data);
-        noRaiz.add(new DefaultMutableTreeNode(treeNode.getTreco()));
-        
-        // Use o método getChildren da ArvereDescadeirada para obter os filhos do nó atual
-        List<ArvereDescadeirada.Nozinho> children = arvoreDesbalanceada.getChildren(noAtual);
-        for (ArvereDescadeirada.Nozinho filho : children) {
-            treeNode.addChild(new Nozao(filho.data));
-            preencherNoArvore(noRaiz, filho);
-        }
-    }
+    // Exiba a árvore desbalanceada de forma gráfica
+    jTextArea2.append("\nÁrvore Desbalanceada:\n");
+    exibirArvoreGraficamente(arvoreDesbalanceada.getRoot(), "", "", true);
 }
 
 
+public void exibirArvoreGraficamente(ArvereDescadeirada.Nozinho noAtual, String prefixo, String seta, boolean isRight) {
+    if (noAtual != null) {
+        jTextArea2.append(prefixo);
+        jTextArea2.append(isRight ? "└── " : "├── ");
+        jTextArea2.append(noAtual.getData() + "\n");
 
+        // Chamar recursivamente para os nós filho
+        exibirArvoreGraficamente(noAtual.getLeft(), prefixo + (isRight ? "    " : "│   "), "├── ", false);
+        exibirArvoreGraficamente(noAtual.getRight(), prefixo + (isRight ? "    " : "│   "), "└── ", true);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,34 +66,24 @@ public class Tela extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTreeBuild = new javax.swing.JTree();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea2 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jScrollPane2.setViewportView(jTreeBuild);
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        );
+        jTextArea2.setColumns(20);
+        jTextArea2.setRows(5);
+        jScrollPane1.setViewportView(jTextArea2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
         );
 
         pack();
@@ -124,9 +93,6 @@ public class Tela extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        
-        
-        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -148,22 +114,18 @@ public class Tela extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Tela.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
-        
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                new Tela().setVisible(true);
             }
         });
     }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTree jTreeBuild;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea2;
     // End of variables declaration//GEN-END:variables
 }
