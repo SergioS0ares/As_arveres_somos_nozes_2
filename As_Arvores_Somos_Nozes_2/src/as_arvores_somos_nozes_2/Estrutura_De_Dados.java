@@ -23,7 +23,9 @@ public class Estrutura_De_Dados {
         processadorTxt.ProcessarTxt();
         ContadorDeComparacaoAvl programa = new ContadorDeComparacaoAvl();
         
-
+        //Instanciar a classe ArvoreB, e mostrar quantas chaves de uma pagina
+        ArvoreB arvoreb = new ArvoreB(4);
+        
         // Obter a lista de palavras relevantes do processador de texto
         List<String> palavrasRelevantes = processadorTxt.getRelevantes();
 
@@ -33,6 +35,25 @@ public class Estrutura_De_Dados {
         // Criar uma árvore desbalanceada a partir da classe ArvereDescadeirada
         ArvereDescadeirada arvoreDesbalanceada = new ArvereDescadeirada();
 
+        // Medição de tempo da Árvore AVL
+    long inicioArvoreB = System.currentTimeMillis();
+    int comparacoesB = 0; // Variável para contar as comparações na AVL
+    
+     boolean coiso = true;
+    for (String palavra : palavrasRelevantes) {
+        if (coiso) {
+            // Medição de tempo da Árvore Desbalanceada
+            inicioArvoreB = System.currentTimeMillis();
+            coiso = false;
+        }
+        // Inserir na árvore desbalanceada e contar comparações
+        arvoreb.insert(palavra);
+        //comparacoesDesbalanceada += arvoreDesbalanceada.getComparacoes(); AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    }
+     // Medição de tempo da Arvore AVL
+        long fimB = System.currentTimeMillis();
+    
+    
         // Medição de tempo da Árvore AVL
     long inicioArvoreAVL = System.currentTimeMillis();
     int comparacoesAVL = 0; // Variável para contar as comparações na AVL
@@ -117,11 +138,19 @@ public class Estrutura_De_Dados {
 
         long tempoExecucaoBinario = fimBinario - inicioBinario;
         // Converter o tempo de execução de milissegundos para segundos
-        double tempoExecucaoBinaioSegundos = (double) tempoExecucaoBinario / 1000.0;
+        double tempoExecucaoBinarioSegundos = (double) tempoExecucaoBinario / 1000.0;
         
         System.out.println("\nResultados da Busca Binária:");
         System.out.println("Número de comparações: " + comparacoesBuscaBinaria);
-        System.out.println("Tempo de execução: "+ tempoExecucaoBinaioSegundos);
+        System.out.println("Tempo de execução: "+ tempoExecucaoBinarioSegundos);
+        
+        long tempoExecucaoArvoreB = fimB - inicioArvoreB;
+        // Converter o tempo de execução de milissegundos para segundos
+        double tempoExecucaoArvoreBSegundos = (double) tempoExecucaoArvoreB / 1000.0;
+        
+        System.out.println("\nResultados da Árvore B:");
+        //System.out.println("Número de comparações: " + ); AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+        System.out.println("Tempo de execução: "+ tempoExecucaoArvoreBSegundos);
         
        
  // Criar uma instância da classe Tela
