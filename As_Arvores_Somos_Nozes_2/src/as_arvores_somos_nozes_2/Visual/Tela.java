@@ -4,7 +4,7 @@
  */
 package as_arvores_somos_nozes_2.Visual;
 
-import as_arvores_somos_nozes_2.ArquivoTXT.ArvereDescadeirada;
+import as_arvores_somos_nozes_2.GerenciarArvores.ArvereDescadeirada;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.JScrollPane;
