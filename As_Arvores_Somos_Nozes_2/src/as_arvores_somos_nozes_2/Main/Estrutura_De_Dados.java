@@ -14,7 +14,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
 import as_arvores_somos_nozes_2.GerenciarArvores.ContadorDeComparacaoAvl;
-import as_arvores_somos_nozes_2.GerenciarArvores.ContadorDeComparacaoAvl;
 import java.awt.EventQueue;
 
 public class Estrutura_De_Dados {
