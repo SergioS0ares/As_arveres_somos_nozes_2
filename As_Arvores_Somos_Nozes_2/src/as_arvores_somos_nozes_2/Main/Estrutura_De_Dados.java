@@ -3,16 +3,18 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package as_arvores_somos_nozes_2;
+package as_arvores_somos_nozes_2.Main;
 
 import as_arvores_somos_nozes_2.ArquivoTXT.Txt_para_Lista;
-import as_arvores_somos_nozes_2.ArquivoTXT.ArvereDescadeirada;
+import as_arvores_somos_nozes_2.GerenciarArvores.ArvereDescadeirada;
+import as_arvores_somos_nozes_2.GerenciarArvores.ArvoreB;
 import as_arvores_somos_nozes_2.Visual.Tela;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.TreeMap;
-import as_arvores_somos_nozes_2.ContadorDeComparacaoAvl;
+import as_arvores_somos_nozes_2.GerenciarArvores.ContadorDeComparacaoAvl;
+import as_arvores_somos_nozes_2.GerenciarArvores.ContadorDeComparacaoAvl;
 import java.awt.EventQueue;
 
 public class Estrutura_De_Dados {
