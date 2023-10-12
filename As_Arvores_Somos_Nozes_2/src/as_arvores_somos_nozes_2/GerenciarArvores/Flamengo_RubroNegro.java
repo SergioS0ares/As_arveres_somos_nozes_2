@@ -83,22 +83,22 @@ public class Flamengo_RubroNegro <K extends Comparable<K>, V> {
 
     // Realizar rotação para a esquerda
     private NodoRN<K, V> rotacaoEsquerda(NodoRN<K, V> nodo) {
-        NodoRN<K, V> treco = nodo.direita;
-        nodo.direita = treco.esquerda;
-        treco.esquerda = nodo;
-        treco.cor = nodo.cor;
+        NodoRN<K, V> nodoTemporario = nodo.direita;
+        nodo.direita = nodoTemporario.esquerda;
+        nodoTemporario.esquerda = nodo;
+        nodoTemporario.cor = nodo.cor;
         nodo.cor = VERMELHO;
-        return treco;
+        return nodoTemporario;
     }
 
     // Realizar rotação para a direita
     private NodoRN<K, V> rotacaoDireita(NodoRN<K, V> nodo) {
-        NodoRN<K, V> treco = nodo.esquerda;
-        nodo.esquerda = treco.direita;
-        treco.direita = nodo;
-        treco.cor = nodo.cor;
+        NodoRN<K, V> nodoTemporario = nodo.esquerda;
+        nodo.esquerda = nodoTemporario.direita;
+        nodoTemporario.direita = nodo;
+        nodoTemporario.cor = nodo.cor;
         nodo.cor = VERMELHO;
-        return treco;
+        return nodoTemporario;
     }
 
     // Inverter cores de um nodo e seus filhos

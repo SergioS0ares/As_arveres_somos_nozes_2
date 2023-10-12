@@ -46,11 +46,11 @@ public class ArvereDescadeirada {
 
     // Método para inserir uma string na árvore
     public void insereNaDescadeirada(String data) { // enfia o papo
-        root = treco(root, data);
+        root = nodoAtual(root, data);
     }
 
     // Função auxiliar para inserir uma string de forma recursiva
-    public Nozinho treco(Nozinho raizera, String data) { // treco é a coisa que vc quer adicionar
+    public Nozinho nodoAtual(Nozinho raizera, String data) { //o nome nodoAtual tem como função manter o nodo atual durante a inserção ou busca na árvore
         if (raizera == null) {
             raizera = new Nozinho(data);
             return raizera; // pipipipopopo
@@ -61,19 +61,11 @@ public class ArvereDescadeirada {
         comparamenteiro++; // Incrementar o contador de comparações
 
         if (comparatoeira < 0) {
-            raizera.left = treco(raizera.left, data);
+            raizera.left = nodoAtual(raizera.left, data);
         } else if (comparatoeira > 0) {
-            raizera.right = treco(raizera.right, data);
+            raizera.right = nodoAtual(raizera.right, data);
         }
-        /*
-        peguei essa coisa que divide os trecos de maior, menor... puxei isso tudo do gpt
-                if (comparatoeira < 0) {
-            raizera.left = treco(raizera.left, data);
-        } else if (comparatoeira > 0) {
-            raizera.right = treco(raizera.right, data);
-        }
-
-        */
+        
         return raizera;
     }
 
