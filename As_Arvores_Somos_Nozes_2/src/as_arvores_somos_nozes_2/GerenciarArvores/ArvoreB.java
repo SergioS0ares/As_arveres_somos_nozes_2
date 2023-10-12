@@ -31,12 +31,14 @@ public class ArvoreB {
 
     NoDaArvoreB raiz; // Raiz da Árvore B... bem auto-explicativo.
     private int c; // Ordem da Árvore B (mínimo de chaves em um nó = t-1)
+    private int comparacoesArvoreB;
     // O nome é pra ser "t" mesmo. esse é o nome padrão, não foi por preguiça.
     // Construtor para criar uma Árvore B com ordem t
 
     public ArvoreB(int chave) {
         this.raiz = new NoDaArvoreB(true);
         this.c = chave;
+        this.comparacoesArvoreB = 0;
     } // Massa né?!
     // Método para inserir uma chave na Árvore B
 
@@ -62,6 +64,7 @@ public class ArvoreB {
             while (index >= 0 && chave.compareTo(no.chaves.get(index)) < 0) {
                 no.chaves.set(index + 1, no.chaves.get(index));
                 index--;
+                comparacoesArvoreB++;
             }
             no.chaves.set(index + 1, chave);
         } else {// Se ele não for folha entra no else, óbviamente.
@@ -109,6 +112,7 @@ public class ArvoreB {
         int i = 0;
         while (i < node.chaves.size() && key.compareTo(node.chaves.get(i)) > 0) {
             i++;
+            comparacoesArvoreB++;
         }
         if (i < node.chaves.size() && key.equals(node.chaves.get(i))) {
             return true;
@@ -120,6 +124,14 @@ public class ArvoreB {
     }
     public NoDaArvoreB getRaiz() {
         return raiz;
+    }
+
+    public int getComparacoesArvoreB() {
+        return comparacoesArvoreB;
+    }
+
+    public void setComparacoesArvoreB(int comparacoesArvoreB) {
+        this.comparacoesArvoreB = comparacoesArvoreB;
     }
 
 }
