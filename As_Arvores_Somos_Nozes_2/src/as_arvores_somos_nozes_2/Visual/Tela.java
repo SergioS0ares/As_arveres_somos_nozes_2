@@ -5,6 +5,7 @@
 package as_arvores_somos_nozes_2.Visual;
 
 import as_arvores_somos_nozes_2.GerenciarArvores.ArvereDescadeirada;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.JScrollPane;
@@ -23,7 +24,7 @@ public class Tela extends javax.swing.JFrame {
 
   public void exibirArvoresGraficamente(TreeMap<String, Integer> arvoreAVL, ArvereDescadeirada arvoreDesbalanceada) {
     // Limpe o JTextArea antes de exibir as árvores
-    jTextArea2.setText("");
+    jTextAreaGraficamenteArvores.setText("");
 
     // Crie uma árvore de Nozinho a partir do TreeMap arvoreAVLConvertida
     ArvereDescadeirada arvoreAVLConvertida = new ArvereDescadeirada();
@@ -37,24 +38,30 @@ public class Tela extends javax.swing.JFrame {
     }
 
     // Exiba a árvore balanceada (TreeMap) de forma gráfica
-    jTextArea2.append("Árvore AVL (Balanceada):\n");
+    jTextAreaGraficamenteArvores.append("Árvore AVL (Balanceada):\n");
     exibirArvoreGraficamente(arvoreAVLConvertida.getRoot(), "", "", true);
 
     // Exiba a árvore desbalanceada de forma gráfica
-    jTextArea2.append("\nÁrvore Desbalanceada:\n");
+    jTextAreaGraficamenteArvores.append("\nÁrvore Desbalanceada:\n");
     exibirArvoreGraficamente(arvoreDesbalanceada.getRoot(), "", "", true);
 }
 
 
 public void exibirArvoreGraficamente(ArvereDescadeirada.Nozinho noAtual, String prefixo, String seta, boolean isRight) {
     if (noAtual != null) {
-        jTextArea2.append(prefixo);
-        jTextArea2.append(isRight ? "└── " : "├── ");
-        jTextArea2.append(noAtual.getData() + "\n");
+        jTextAreaGraficamenteArvores.append(prefixo);
+        jTextAreaGraficamenteArvores.append(isRight ? "└── " : "├── ");
+        jTextAreaGraficamenteArvores.append(noAtual.getData() + "\n");
 
         // Chamar recursivamente para os nós filho
         exibirArvoreGraficamente(noAtual.getLeft(), prefixo + (isRight ? "    " : "│   "), "├── ", false);
         exibirArvoreGraficamente(noAtual.getRight(), prefixo + (isRight ? "    " : "│   "), "└── ", true);
+    }
+}
+  
+public void  printarTextoGraficamente(ArrayList<String> treco){
+    for(int c = 0; c < treco.size(); c++){
+        jTextAreaTexto.setText(jTextAreaTexto.getText() + treco.get(c));
     }
 }
     /**
@@ -67,23 +74,40 @@ public void exibirArvoreGraficamente(ArvereDescadeirada.Nozinho noAtual, String 
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jTextAreaGraficamenteArvores = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaTexto = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane1.setViewportView(jTextArea2);
+        jTextAreaGraficamenteArvores.setColumns(20);
+        jTextAreaGraficamenteArvores.setRows(5);
+        jTextAreaGraficamenteArvores.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane1.setViewportView(jTextAreaGraficamenteArvores);
+
+        jTextAreaTexto.setColumns(20);
+        jTextAreaTexto.setRows(5);
+        jTextAreaTexto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jScrollPane2.setViewportView(jTextAreaTexto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         pack();
@@ -126,6 +150,8 @@ public void exibirArvoreGraficamente(ArvereDescadeirada.Nozinho noAtual, String 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextAreaGraficamenteArvores;
+    private javax.swing.JTextArea jTextAreaTexto;
     // End of variables declaration//GEN-END:variables
 }
