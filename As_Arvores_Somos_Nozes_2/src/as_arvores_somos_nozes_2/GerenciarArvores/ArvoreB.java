@@ -13,11 +13,11 @@ import java.util.List;
  */
 public class ArvoreB {
     
-    class NoDaArvoreB {
+    public class NoDaArvoreB {
 
-        List<String> chaves; // Lista de chaves armazenadas no nó
+        public List<String> chaves; // Lista de chaves armazenadas no nó
         // não é uma referencia ao chaves, o nome na real deveria ser "keys", mas chaves tá de boa.
-        List<NoDaArvoreB> filhotes; // Lista de filhos do nó
+        public List<NoDaArvoreB> filhotes; // Lista de filhos do nó
         boolean folhinha; // Indica se o nó é uma folha
         // Construtor para inicializar um nó
 

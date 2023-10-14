@@ -12,11 +12,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Collections;
 
 public class Txt_para_Lista {
 
     private List<String> stopwords;
     private List<String> relevantes;
+    int x;
 
     public Txt_para_Lista() {
         // Inicialize a lista de stopwords no construtor
@@ -41,7 +43,7 @@ public class Txt_para_Lista {
                     for (String word : palavras_separadas) {//repete até que eu tenha percorrido todo o vetor de string
                         word = word.toLowerCase();// Converta para minúsculas
                         if (!stopwords.contains(word)) {// Verifique se a palavra não é uma stopword
-                            relevantes.add(word);
+                            relevantes.add(word);// adiciona a palavra a lista de palavras relevantes.
                         }//se nao for entao... fodase
                     }
                 }
@@ -53,5 +55,68 @@ public class Txt_para_Lista {
 
     public List<String> getRelevantes() {
         return relevantes;
+    }
+
+    public int getTamanhoDoVetor() {
+        return x;
+    }
+    
+    public int getFrequencia(int index){
+        int valor; // valor a ser retornado
+        int[] vetor = CalcularFrequancia(); // vetor que a gente vai trabalhar aqui
+        valor = vetor[index];
+        System.out.println("calculando frequencia... pos: " + index);
+        return valor;
+    }
+    
+    private int[] aumentarVetor(int[] vetor, int tamanhoAtual){
+        int[] novoVetor = new int[tamanhoAtual + 1];
+        for (int z = 0; z < tamanhoAtual; z = z + 1){
+            novoVetor[z] = vetor[z];
+        }
+        return novoVetor;
+    }
+    
+    public int[] CalcularFrequancia(){
+        int quantFrequencia = 1;// Quantas vezes a palavra se repetiu.
+        int tamanhoVet = 1; // tamanho do vetor de frequencia
+        int posFreq = 0; // posição no vetor de frequencias
+        int frequencia[] = new int[tamanhoVet]; // vetor com tamanho alterável
+        int cordenadaPalavra = 0; // cordenada da palavra na lista de palavras relevantes
+        ArrayList<String> treco;
+        treco = (ArrayList<String>) this.relevantes;
+        Collections.sort(treco);// ordenando uma nova array, já q quem vai ter  resolver esse paranaue e a arvore
+        for (String palavra : treco){
+            if (cordenadaPalavra == 0){// se for a primeira palavra:
+                frequencia[posFreq] = quantFrequencia;
+                cordenadaPalavra = cordenadaPalavra + 1;
+            } else if (cordenadaPalavra != 0 && !palavra.equals(treco.get(cordenadaPalavra -1))){
+                // se não for a primeira palavra e for diferente da palavra anterior:
+                if (tamanhoVet - 1 == posFreq){
+                    frequencia = aumentarVetor(frequencia, tamanhoVet);
+                    tamanhoVet = tamanhoVet + 1;
+                }
+                // se o vetor estiver cheio, chama o metodo que aumenta o vetor
+                posFreq = posFreq + 1; // passa pra próxima posição do vetor
+                quantFrequencia = 1; // nova palavra, nova frequencia
+                frequencia[posFreq] = quantFrequencia; // coloca que é a primeira vez que voce ve essa palavra
+                cordenadaPalavra = cordenadaPalavra + 1; // passa pra próxima palavra
+            } else {
+                // se não for a primeira palavra e for igual a palavra anterior:
+                frequencia[posFreq] = quantFrequencia + 1;// aumenta dizendo que repetiu a palavra
+                cordenadaPalavra = cordenadaPalavra + 1; // passa pra próxima palavra
+            }
+            
+        }
+        this.x = posFreq;
+        return frequencia;
+    }
+    
+    public boolean frequencia_ForNulo(int index){
+        /*
+        se a próxima poxição não existir, ou seja, for null; retona verdadeiro
+        enquanto a posição existir ele retorna falso
+        */
+        return index > x;
     }
 }

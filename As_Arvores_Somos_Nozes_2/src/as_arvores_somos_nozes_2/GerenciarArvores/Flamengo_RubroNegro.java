@@ -9,19 +9,19 @@ package as_arvores_somos_nozes_2.GerenciarArvores;
  * @author julio
  */
 public class Flamengo_RubroNegro <K extends Comparable<K>, V> {
-    private NodoRN<K, V> raiz; // Raiz da árvore
-    private int comparacoes; // Contador de comparacoes
+    public NodoRN<K, V> raiz; // Raiz da árvore
+    private int comparacoes = 0; // Contador de comparacoes
 
     // Constantes para cores dos nodos
-    private static final boolean VERMELHO = true;
-    private static final boolean PRETO = false;
+    public static final boolean VERMELHO = true;
+    public static final boolean PRETO = false;
 
     // Classe interna para representar os nodos
-    private static class NodoRN<K, V> {
-        K chave;
-        V valor;
-        NodoRN<K, V> esquerda, direita;
-        boolean cor; // Cor do nodo (true para vermelho, false para preto)
+    public static class NodoRN<K, V> {
+        public K chave;
+        public V valor;
+        public NodoRN<K, V> esquerda, direita;
+        public boolean cor; // Cor do nodo (true para vermelho, false para preto)
 
         NodoRN(K chave, V valor, boolean cor) {
             this.chave = chave;
@@ -108,6 +108,11 @@ public class Flamengo_RubroNegro <K extends Comparable<K>, V> {
         nodo.direita.cor = !nodo.direita.cor;
     }
 
+    public NodoRN<K, V> getRaiz() {
+        return raiz;
+    }
+
+    
     // Contador de comparacoes
     public int getComparacoes() {
         return comparacoes;
