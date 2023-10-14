@@ -5,9 +5,10 @@
 package as_arvores_somos_nozes_2.Visual;
 
 import as_arvores_somos_nozes_2.GerenciarArvores.ArvereDescadeirada;
+import as_arvores_somos_nozes_2.GerenciarArvores.ArvoreB;
+import as_arvores_somos_nozes_2.GerenciarArvores.ArvoreCadeirada;
+import as_arvores_somos_nozes_2.GerenciarArvores.Flamengo_RubroNegro;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.TreeMap;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -17,48 +18,75 @@ import javax.swing.JTextArea;
  */
 public class Tela extends javax.swing.JFrame {
     private ArvereDescadeirada arvoreDesbalanceada = new ArvereDescadeirada();
+    private ArvoreCadeirada arvoreCadeirada = new ArvoreCadeirada();
+    private Flamengo_RubroNegro flamenguista = new Flamengo_RubroNegro();
+    private ArvoreB biruBiru = new ArvoreB(4);
     private Tela instanciaTela;
     public Tela() {
         initComponents();
     }
+    
+public void ExibirArvoreGraficamente(ArvoreCadeirada arvoreCadeirada, ArvereDescadeirada arvoreDesbalanceada, ArvoreB arvoreB, Flamengo_RubroNegro arvoreRubroNegro) {
+    
+    this.biruBiru = arvoreB;
+    this.arvoreCadeirada = arvoreCadeirada;
+    this.arvoreDesbalanceada = arvoreDesbalanceada;
+    this.flamenguista = arvoreRubroNegro;
+    
+    /*
+    jTextAreaGraficamenteArvores.setText("Árvore Balanceada (ArvoreCadeirada):\n");
+    mostrarArvoreCadeiradaGraficamente(arvoreCadeirada.getRoot(), "");
 
-  public void exibirArvoresGraficamente(TreeMap<String, Integer> arvoreAVL, ArvereDescadeirada arvoreDesbalanceada) {
-    // Limpe o JTextArea antes de exibir as árvores
-    jTextAreaGraficamenteArvores.setText("");
+    jTextAreaGraficamenteArvores.append("\n\nÁrvore Desbalanceada (ArvereDescadeirada):\n");
+    mostrarArvoreDescadeiradaGraficamente(arvoreDesbalanceada.getRoot(), "");
 
-    // Crie uma árvore de Nozinho a partir do TreeMap arvoreAVLConvertida
-    ArvereDescadeirada arvoreAVLConvertida = new ArvereDescadeirada();
+    jTextAreaGraficamenteArvores.setText("\n\nÁrvore B:\n");
+    mostrarArvoreBgraficamente(arvoreB.getRaiz(), "");
 
-    for (Map.Entry<String, Integer> entry : arvoreAVL.entrySet()) {
-        String chave = entry.getKey();
-        int valor = entry.getValue();
-        for (int i = 0; i < valor; i++) {
-            arvoreAVLConvertida.insereNaDescadeirada(chave);
+    jTextAreaGraficamenteArvores.setText("\n\nÁrvore Rubro-Negra (Flamengo_RubroNegro):\n");
+    mostrarArvoreRNgraficamente(arvoreRubroNegro.getRaiz(), "");
+  */
+}
+
+private void mostrarArvoreCadeiradaGraficamente(ArvoreCadeirada.Nozinho noAtual, String prefix) {
+    if (noAtual != null) {
+        jTextAreaGraficamenteArvores.append(prefix + noAtual.data + "\n");
+        mostrarArvoreCadeiradaGraficamente(noAtual.left, prefix + "└──: ");
+        mostrarArvoreCadeiradaGraficamente(noAtual.right, prefix + "└──: ");
+    }
+}
+
+private void mostrarArvoreDescadeiradaGraficamente(ArvereDescadeirada.Nozinho noAtual, String prefix) {
+    if (noAtual != null) {
+        jTextAreaGraficamenteArvores.append(prefix + noAtual.data + "\n");
+        mostrarArvoreDescadeiradaGraficamente(noAtual.left, prefix + "└──: ");
+        mostrarArvoreDescadeiradaGraficamente(noAtual.right, prefix + "└──: ");
+    }
+}
+
+private void mostrarArvoreBgraficamente(ArvoreB.NoDaArvoreB noAtual, String prefix) {
+    if (noAtual != null) {
+        jTextAreaGraficamenteArvores.append(prefix + noAtual.toString() + "\n");
+        
+        // Itere pelos filhotes do nó atual e chame recursivamente o método.
+        for (int i = 0; i < noAtual.filhotes.size(); i++) {
+            mostrarArvoreBgraficamente(noAtual.filhotes.get(i), prefix + "└──" + i + ": ");
         }
     }
-
-    // Exiba a árvore balanceada (TreeMap) de forma gráfica
-    jTextAreaGraficamenteArvores.append("Árvore AVL (Balanceada):\n");
-    exibirArvoreGraficamente(arvoreAVLConvertida.getRoot(), "", "", true);
-
-    // Exiba a árvore desbalanceada de forma gráfica
-    jTextAreaGraficamenteArvores.append("\nÁrvore Desbalanceada:\n");
-    exibirArvoreGraficamente(arvoreDesbalanceada.getRoot(), "", "", true);
 }
 
 
-public void exibirArvoreGraficamente(ArvereDescadeirada.Nozinho noAtual, String prefixo, String seta, boolean isRight) {
+private void mostrarArvoreRNgraficamente(Flamengo_RubroNegro.NodoRN<String, String> noAtual, String prefix) {
     if (noAtual != null) {
-        jTextAreaGraficamenteArvores.append(prefixo);
-        jTextAreaGraficamenteArvores.append(isRight ? "└── " : "├── ");
-        jTextAreaGraficamenteArvores.append(noAtual.getData() + "\n");
-
-        // Chamar recursivamente para os nós filho
-        exibirArvoreGraficamente(noAtual.getLeft(), prefixo + (isRight ? "    " : "│   "), "├── ", false);
-        exibirArvoreGraficamente(noAtual.getRight(), prefixo + (isRight ? "    " : "│   "), "└── ", true);
+        String cor = (noAtual.cor == Flamengo_RubroNegro.VERMELHO) ? " (R)" : " (B)";
+        jTextAreaGraficamenteArvores.append(prefix + noAtual.chave + cor + "\n");
+        mostrarArvoreRNgraficamente(noAtual.esquerda, prefix + "└──: ");
+        mostrarArvoreRNgraficamente(noAtual.direita, prefix + "└──: ");
     }
 }
-  
+
+
+    
 public void  printarTextoGraficamente(ArrayList<String> treco){
     for(int c = 0; c < treco.size(); c++){
         jTextAreaTexto.setText(jTextAreaTexto.getText() + treco.get(c));
@@ -77,6 +105,10 @@ public void  printarTextoGraficamente(ArrayList<String> treco){
         jTextAreaGraficamenteArvores = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaTexto = new javax.swing.JTextArea();
+        jButtonCadeirada = new javax.swing.JButton();
+        jButtonDescadeirada = new javax.swing.JButton();
+        jButtonBigBrotherBrasil = new javax.swing.JButton();
+        jButtonFlamenguista = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +122,34 @@ public void  printarTextoGraficamente(ArrayList<String> treco){
         jTextAreaTexto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jScrollPane2.setViewportView(jTextAreaTexto);
 
+        jButtonCadeirada.setText("Balanceada");
+        jButtonCadeirada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadeiradaActionPerformed(evt);
+            }
+        });
+
+        jButtonDescadeirada.setText("Desbalanceada");
+        jButtonDescadeirada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDescadeiradaActionPerformed(evt);
+            }
+        });
+
+        jButtonBigBrotherBrasil.setText("B");
+        jButtonBigBrotherBrasil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBigBrotherBrasilActionPerformed(evt);
+            }
+        });
+
+        jButtonFlamenguista.setText("RubroNegro");
+        jButtonFlamenguista.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonFlamenguistaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,7 +159,13 @@ public void  printarTextoGraficamente(ArrayList<String> treco){
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 671, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonCadeirada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonDescadeirada, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                    .addComponent(jButtonBigBrotherBrasil, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                    .addComponent(jButtonFlamenguista, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,10 +174,45 @@ public void  printarTextoGraficamente(ArrayList<String> treco){
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(0, 17, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButtonCadeirada, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonDescadeirada, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonBigBrotherBrasil, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButtonFlamenguista, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonCadeiradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadeiradaActionPerformed
+        jTextAreaGraficamenteArvores.setText("Árvore Balanceada (ArvoreCadeirada):\n");
+        mostrarArvoreCadeiradaGraficamente(arvoreCadeirada.getRoot(), "");
+    }//GEN-LAST:event_jButtonCadeiradaActionPerformed
+
+    private void jButtonDescadeiradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDescadeiradaActionPerformed
+    jTextAreaGraficamenteArvores.setText("\n\nÁrvore Desbalanceada (ArvereDescadeirada):\n");
+    mostrarArvoreDescadeiradaGraficamente(arvoreDesbalanceada.getRoot(), "");
+    }//GEN-LAST:event_jButtonDescadeiradaActionPerformed
+
+    private void jButtonBigBrotherBrasilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBigBrotherBrasilActionPerformed
+        if (biruBiru.getRaiz() != null) {
+            jTextAreaGraficamenteArvores.setText("\n\nÁrvore B:\n");
+            mostrarArvoreBgraficamente(biruBiru.getRaiz(), "");
+        } else {
+            // Trate o caso em que biruBiru.getRaiz() é nulo, por exemplo, exibindo uma mensagem de erro.
+            jTextAreaGraficamenteArvores.setText("\n\nÁrvore B está vazia ou não foi inicializada.");
+        }
+    }//GEN-LAST:event_jButtonBigBrotherBrasilActionPerformed
+
+    private void jButtonFlamenguistaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFlamenguistaActionPerformed
+    jTextAreaGraficamenteArvores.setText("\n\nÁrvore Rubro-Negra (Flamengo_RubroNegro):\n");
+    mostrarArvoreRNgraficamente(flamenguista.getRaiz(), "");
+    }//GEN-LAST:event_jButtonFlamenguistaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,6 +250,10 @@ public void  printarTextoGraficamente(ArrayList<String> treco){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonBigBrotherBrasil;
+    private javax.swing.JButton jButtonCadeirada;
+    private javax.swing.JButton jButtonDescadeirada;
+    private javax.swing.JButton jButtonFlamenguista;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaGraficamenteArvores;

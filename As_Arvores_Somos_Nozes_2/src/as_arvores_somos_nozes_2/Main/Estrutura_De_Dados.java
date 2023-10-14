@@ -7,13 +7,12 @@ package as_arvores_somos_nozes_2.Main;
 
 import as_arvores_somos_nozes_2.ArquivoTXT.Txt_para_Lista;
 import as_arvores_somos_nozes_2.GerenciarArvores.ArvereDescadeirada;
+import as_arvores_somos_nozes_2.GerenciarArvores.ArvoreCadeirada;
 import as_arvores_somos_nozes_2.GerenciarArvores.ArvoreB;
 import as_arvores_somos_nozes_2.Visual.Tela;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.TreeMap;
-import as_arvores_somos_nozes_2.GerenciarArvores.ContadorDeComparacaoAvl;
 import as_arvores_somos_nozes_2.GerenciarArvores.Flamengo_RubroNegro;
 import java.awt.EventQueue;
 
@@ -23,72 +22,68 @@ public class Estrutura_De_Dados {
         // Instanciar a classe Txt_para_Lista para processar o arquivo de texto
         Txt_para_Lista processadorTxt = new Txt_para_Lista();
         processadorTxt.ProcessarTxt();
-        ContadorDeComparacaoAvl programa = new ContadorDeComparacaoAvl();
+
+        // Instanciar a nova classe ArvereDescadeirada
+        ArvereDescadeirada arvoreDescadeirada = new ArvereDescadeirada();
         
-        //Instanciar a classe ArvoreB, e mostrar quantas chaves de uma pagina
-        ArvoreB arvoreb = new ArvoreB(4);
-        
-        //Intanciando a classe Flamengo_RubroNegro(Arvore Rubro Negro)
-        Flamengo_RubroNegro arvoreRubroNegro = new Flamengo_RubroNegro();
-        
+        // Instanciar a nova Classe ArvoreCadeirada
+        ArvoreCadeirada arvoreCadeirada = new ArvoreCadeirada();
+
+        // Instanciar a classe ArvoreB e mostrar quantas chaves de uma página
+        ArvoreB arvoreBBB = new ArvoreB(4);
+
+        // Instanciar a classe Flamengo_RubroNegro (Árvore Rubro-Negra)
+        Flamengo_RubroNegro arvoreFlamenguista = new Flamengo_RubroNegro();
+
         // Obter a lista de palavras relevantes do processador de texto
         List<String> palavrasRelevantes = processadorTxt.getRelevantes();
 
-        // Criar uma árvore AVL para armazenar as palavras e suas frequências
-        TreeMap<String, Integer> arvoreAVL = new TreeMap<>();
+        // Medição de tempo da Árvore B
+        long inicioArvoreB = System.currentTimeMillis();
 
-        // Criar uma árvore desbalanceada a partir da classe ArvereDescadeirada
-        ArvereDescadeirada arvoreDesbalanceada = new ArvereDescadeirada();
-
-        // Medição de tempo da Árvore AVL
-    long inicioArvoreB = System.currentTimeMillis();
-    int comparacoesB = 0; // Variável para contar as comparações na AVL
-    
-    for (String palavra : palavrasRelevantes) {
-       
-        // Inserir na árvore B
-        arvoreb.insert(palavra);
-    }
-     // Medição de tempo da Arvore B
-        long fimB = System.currentTimeMillis();
-    
-    
-        // Medição de tempo da Árvore AVL
-    long inicioArvoreAVL = System.currentTimeMillis();
-    int comparacoesAVL = 0; // Variável para contar as comparações na AVL
-    
-    // Inserir as palavras nas árvores e contar comparações (desbalanceada)
-    int comparacoesDesbalanceada = 0;
-
-    for (String palavra : palavrasRelevantes) {
-        // Inserir na árvore AVL e contar comparações
-        if (arvoreAVL.containsKey(palavra)) {
-            int frequencia = arvoreAVL.get(palavra);
-            arvoreAVL.put(palavra, frequencia + 1);
-        } else {
-            arvoreAVL.put(palavra, 1);
+        for (String palavra : palavrasRelevantes) {
+            // Inserir na Árvore B
+            arvoreBBB.insert(palavra);
         }
-        // Realizar comparações na AVL e contar
-    int comparacoes = programa.contarComparacoes(arvoreAVL, palavra);
-    comparacoesAVL += comparacoes;
-    }
+        // Medição de tempo da Árvore B
+        long fimB = System.currentTimeMillis();
 
-    // Medição de tempo da Árvore Desbalanceada
-    long inicioArvoreDescadeirada = System.currentTimeMillis();
+        // Medição de tempo da Árvore Cadeirada (ArvoreCadeirada)
+        long inicioArvoreCadeirada = System.currentTimeMillis();
+        int comparacoesCadeirada = 0; // Variável para contar as comparações na ArvoreCadeirada
 
-    for (String palavra : palavrasRelevantes) {
-        // Inserir na árvore desbalanceada e contar comparações
-        arvoreDesbalanceada.insereNaDescadeirada(palavra);
-        comparacoesDesbalanceada += arvoreDesbalanceada.getComparacoes();
-    }
-            
-        // Medição de tempo da Arvore AVL
-        long fimAVL = System.currentTimeMillis();
-        
-        // Medição de tempo da Arvore Desbalanceada
+        for (String palavra : palavrasRelevantes) {
+            // Inserir na Árvore Cadeirada e contar comparações
+            arvoreCadeirada.insereNaDescadeirada(palavra);
+            comparacoesCadeirada += arvoreCadeirada.getComparacoes();
+        }
+        // Medição de tempo da Árvore Cadeirada
+        long fimCadeirada = System.currentTimeMillis();
+
+        // Medição de tempo da Árvore Descadeirada (ArvoreCadeirada)
+        long inicioArvoreDescadeirada = System.currentTimeMillis();
+        int comparacoesDescadeirada = 0; // Variável para contar as comparações na ArvoreCadeirada
+
+        for (String palavra : palavrasRelevantes) {
+            // Inserir na Árvore Descadeirada e contar comparações
+            arvoreDescadeirada.insereNaDescadeirada(palavra);
+            comparacoesDescadeirada += arvoreDescadeirada.getComparacoes();
+        }
+        // Medição de tempo da Árvore Descadeirada
         long fimDescadeirada = System.currentTimeMillis();
         
-        // Medição de tempo da Busca Binario
+        // Medição de tempo da Árvore Rubro-Negra
+        long inicioArvoreRubroNegra = System.currentTimeMillis();
+        int comparacoesRubroNegra = 0; // Variável para contar as comparações na Árvore Rubro-Negra
+
+        for (String palavra : palavrasRelevantes) {
+            // Inserir na Árvore Rubro-Negra
+            arvoreFlamenguista.inserir(palavra, null); // O segundo argumento pode ser ajustado conforme sua necessidade
+        }
+        // Medição de tempo da Árvore Rubro-Negra
+        long fimRubroNegra = System.currentTimeMillis();
+
+        // Medição de tempo da Busca Binária
         long inicioBinario = System.currentTimeMillis();
         // Ordenar as palavras alfabeticamente (usando ArrayList para Busca Binária)
         ArrayList<String> palavrasOrdenadas = new ArrayList<>(palavrasRelevantes);
@@ -103,61 +98,85 @@ public class Estrutura_De_Dados {
                 comparacoesBuscaBinaria++;
             }
         }
-        // Medição de tempo da Busca Binario
+        // Medição de tempo da Busca Binária
         long fimBinario = System.currentTimeMillis();
-        ArrayList<String> textoDaTextArea = new ArrayList<>();
-        
-        // Exibir as palavras e suas frequências
-        textoDaTextArea.add("\nFrequências das palavras (ordenadas alfabeticamente):");
-        arvoreAVL.forEach((palavra, frequencia) -> {
-            textoDaTextArea.add(palavra + ": " + frequencia + "\n");
-        });
-        
-        long tempoExecucaoAVL = fimAVL - inicioArvoreAVL;
-        // Converter o tempo de execução de milissegundos para segundos
-        double tempoExecucaoAVLSegundos = (double) tempoExecucaoAVL / 1000.0;
-        
-        // Exibir resultados das árvores AVL e desbalanceada, bem como da busca binária
-        textoDaTextArea.add("Resultados da Árvore AVL:\n");
-        textoDaTextArea.add("Número de comparações: " + comparacoesAVL + "\n");
-        textoDaTextArea.add("Tempo de execução: " + tempoExecucaoAVLSegundos + "\n");
+        ArrayList<String> treco = new ArrayList<>();
 
-        long tempoExecucaoDescadeirada = fimDescadeirada - inicioArvoreDescadeirada;
+        // Exibir as palavras e suas frequências
+        treco.add("\nFrequências das palavras (ordenadas alfabeticamente):");
+        int listaRelevantes = 0;// contador que vai acompanhar a lista de palavras relevantes
+        int posFreq = 0;// contador que vai acompanhar o vetor de frequencia
+        for (String palavra : palavrasOrdenadas){// repetição que vai percorrer palavra por palavra da lista de palavras relevantes
+            if (listaRelevantes == 0){// se for a primeira palavra
+                treco.add("\n" + palavra + ": " + processadorTxt.getFrequencia(posFreq));
+                // adiciona o que vai ser imprimido
+                posFreq ++;// passa pra proxima posição do vetor
+                listaRelevantes ++;// passa pra proxima palavra relevante
+            } else if (listaRelevantes > 0 && !palavra.equals(palavrasOrdenadas.get(listaRelevantes-1))){
+                /*
+                se não for a primeira palavra e for diferente da palavra enterior entao é uma nova palavra
+                */
+                treco.add("\n" + palavra + ": " + processadorTxt.getFrequencia(posFreq));// adiciona pra impressão
+                listaRelevantes ++;// passa pra próxima palavra relevante
+                if (!processadorTxt.frequencia_ForNulo(posFreq + 1)){// verifica se a próxima posição do vetor é nula
+                    posFreq ++;// passa pra proxima posição do vetor
+                }
+            } else {
+                // Se não for a primeira palavra e for igual a palavra anterior, então não deve ser imprimido novamente.
+                listaRelevantes ++;// passa pra próxima palavra
+            }
+        }
+
+        long tempoExecucaoArvoreCadeirada = fimCadeirada - inicioArvoreCadeirada;
         // Converter o tempo de execução de milissegundos para segundos
-        double tempoExecucaoDescadeiradaSegundos = (double) tempoExecucaoDescadeirada / 1000.0;
+        double tempoExecucaoArvoreCadeiradaSegundos = (double) tempoExecucaoArvoreCadeirada / 1000.0;
+
+        treco.add("\nResultados da Árvore Balanceada:\n");
+        treco.add("Número de comparações: " + comparacoesCadeirada + "\n");
+        treco.add("Tempo de execução: " + tempoExecucaoArvoreCadeiradaSegundos + " segundos\n");
+
+        long tempoExecucaoArvoreDescadeirada = fimCadeirada - inicioArvoreCadeirada;
+        // Converter o tempo de execução de milissegundos para segundos
+        double tempoExecucaoArvoreDescadeiradaSegundos = (double) tempoExecucaoArvoreCadeirada / 1000.0;
+
+        treco.add("\nResultados da Árvore Desbalanceada:\n");
+        treco.add("Número de comparações: " + comparacoesDescadeirada + "\n");
+        treco.add("Tempo de execução: " + tempoExecucaoArvoreDescadeiradaSegundos + " segundos\n");
         
-        textoDaTextArea.add("\nResultados da Árvore Desbalanceada:\n");
-        textoDaTextArea.add("Número de comparações: " + comparacoesDesbalanceada + "\n");
-        textoDaTextArea.add("Tempo de execução: " + tempoExecucaoDescadeiradaSegundos + "\n");
+        long tempoExecucaoRubroNegra = fimRubroNegra - inicioArvoreRubroNegra;
+        // Converter o tempo de execução de milissegundos para segundos
+        double tempoExecucaoRubroNegraSegundos = (double) tempoExecucaoRubroNegra / 1000.0;
+
+        treco.add("\nResultados da Árvore Rubro-Negra:\n");
+        treco.add("Número de comparações: " + comparacoesRubroNegra + "\n");
+        treco.add("Tempo de execução: " + tempoExecucaoRubroNegraSegundos + " segundos\n");
 
         long tempoExecucaoBinario = fimBinario - inicioBinario;
         // Converter o tempo de execução de milissegundos para segundos
         double tempoExecucaoBinarioSegundos = (double) tempoExecucaoBinario / 1000.0;
-        
-        textoDaTextArea.add("\nResultados da Busca Binária:\n");
-        textoDaTextArea.add("Número de comparações: " + comparacoesBuscaBinaria + "\n");
-        textoDaTextArea.add("Tempo de execução: "+ tempoExecucaoBinarioSegundos + "\n");
-        
+
+        treco.add("\nResultados da Busca Binária:\n");
+        treco.add("Número de comparações: " + comparacoesBuscaBinaria + "\n");
+        treco.add("Tempo de execução: " + tempoExecucaoBinarioSegundos + " segundos\n");
+
         long tempoExecucaoArvoreB = fimB - inicioArvoreB;
         // Converter o tempo de execução de milissegundos para segundos
         double tempoExecucaoArvoreBSegundos = (double) tempoExecucaoArvoreB / 1000.0;
-        
-        textoDaTextArea.add("\nResultados da Árvore B:\n");
-        textoDaTextArea.add("Número de comparações: " +arvoreb.getComparacoesArvoreB() + "\n"); 
-        textoDaTextArea.add("Tempo de execução: "+ tempoExecucaoArvoreBSegundos + "\n");
-        
-       
- // Criar uma instância da classe Tela
+
+        treco.add("\nResultados da Árvore B:\n");
+        treco.add("Número de comparações: " + arvoreBBB.getComparacoesArvoreB() + "\n");
+        treco.add("Tempo de execução: " + tempoExecucaoArvoreBSegundos + " segundos\n");
+
+        // Criar uma instância da classe Tela
         Tela instanciaTela = new Tela();
         instanciaTela.setVisible(true);
 
         // Usar EventQueue.invokeLater para exibir a interface gráfica na thread de eventos
         EventQueue.invokeLater(() -> {
             // Exibir as árvores na interface gráfica
-            instanciaTela.exibirArvoresGraficamente(arvoreAVL, arvoreDesbalanceada);
-            instanciaTela.printarTextoGraficamente(textoDaTextArea);
-        });
-      
+            instanciaTela.ExibirArvoreGraficamente(arvoreCadeirada, arvoreDescadeirada, arvoreBBB, arvoreFlamenguista);
+            instanciaTela.printarTextoGraficamente(treco);
+        });      
     }
 }
 

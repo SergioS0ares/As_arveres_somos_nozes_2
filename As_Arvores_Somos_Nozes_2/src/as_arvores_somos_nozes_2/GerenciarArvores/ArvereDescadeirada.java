@@ -14,9 +14,9 @@ import java.util.List;
 
 public class ArvereDescadeirada {
     public class Nozinho { // nó das bubububibibi
-        String data;
-        Nozinho left;
-        Nozinho right;
+        public String data;
+        public Nozinho left;
+        public Nozinho right;
 
         public Nozinho(String data) {
             this.data = data;
